@@ -26,3 +26,4 @@ We want a Frontend + Backend application that allows you to create, read, update
 - I wanna keep this code smaller and simple as possible.
 - I'm using docker, so it is easier to setup the application everywhere.
 - I'm using Rails because it gives me a lot of stuff out of box, like: ActiveRecord, routing, etc.
+- I could have used ActiveRecord callbacks to create a history every time it is updated but I think having as a service is more readable and more extendable.

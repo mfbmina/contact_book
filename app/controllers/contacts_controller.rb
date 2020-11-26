@@ -22,9 +22,9 @@ class ContactsController < ApplicationController
   end
 
   def update
-    contact = Contact.find(params[:id])
+    contact = UpdateContact.new(params[:id], contact_params).process
 
-    if contact.update(contact_params)
+    if contact.valid?
       render json: contact
     else
       render json: { errors: contact.errors }, status: :bad_request

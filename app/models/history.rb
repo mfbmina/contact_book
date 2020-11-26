@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class Contact < ApplicationRecord
-  has_many :histories, dependent: :destroy
+class History < ApplicationRecord
+  belongs_to :contact
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true
   validates :phone_number, presence: true
 end

@@ -55,33 +55,61 @@ RSpec.describe ContactsController do
   end
 
   describe 'PATCH update' do
+    subject(:update) { patch :update, params: params, format: :json }
+
     let!(:contact) { create(:contact) }
 
     context 'with a valid request' do
       let(:params) { { id: contact.id, first_name: 'Francisco' } }
 
-      before { patch :update, params: params, format: :json }
+      it 'returns success' do
+        update
+        expect(response).to have_http_status(:success)
+      end
 
-      it { expect(response).to have_http_status(:success) }
-      it { expect(response.header['Content-Type']).to include('application/json') }
-      it { expect(contact.reload.first_name).to eq('Francisco') }
+      it 'returns a json' do
+        update
+        expect(response.header['Content-Type']).to include('application/json')
+      end
+
+      it 'changes the attribute' do
+        update
+        expect(contact.reload.first_name).to eq('Francisco')
+      end
+
+      it { expect { update }.to change(contact.histories, :count).by(1) }
     end
 
     context 'with an invalid request' do
       let(:params) { { id: contact.id, first_name: nil } }
 
-      before { patch :update, params: params, format: :json }
+      it 'returns a bad_request' do
+        update
+        expect(response).to have_http_status(:bad_request)
+      end
 
-      it { expect(response).to have_http_status(:bad_request) }
-      it { expect(response.header['Content-Type']).to include('application/json') }
-      it { expect(JSON.parse(response.body)).to include('errors') }
-      it { expect(contact.reload.first_name).not_to eq('Francisco') }
+      it 'returns a json' do
+        update
+        expect(response.header['Content-Type']).to include('application/json')
+      end
+
+      it 'does not change the attribute' do
+        update
+        expect(contact.reload.first_name).not_to eq('Francisco')
+      end
+
+      it 'returns they key errors' do
+        update
+        expect(JSON.parse(response.body)).to include('errors')
+      end
+
+      it { expect { update }.to change(contact.histories, :count).by(0) }
     end
 
     context 'with an invalid id' do
       let(:params) { { id: contact.id + 1, first_name: 'Francisco' } }
 
-      before { patch :update, params: params, format: :json }
+      before { update }
 
       it { expect(response).to have_http_status(:not_found) }
       it { expect(response.header['Content-Type']).to include('application/json') }
