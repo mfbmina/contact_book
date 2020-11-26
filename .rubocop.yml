@@ -3,5 +3,9 @@ require:
   - rubocop-rails
   - rubocop-rspec
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 Style/Documentation:
   Enabled: false
