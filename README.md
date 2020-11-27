@@ -13,6 +13,7 @@ We want a Frontend + Backend application that allows you to create, read, update
 - Gems listed on Gemfile
 - Docker
 - MySQL 5.7
+- NodeJS 14.15.1
 
 ## Setup
 
@@ -20,6 +21,8 @@ We want a Frontend + Backend application that allows you to create, read, update
 1. `$ docker-compose up`
 1. `$ docker-compose exec backend rails db:create`
 1. `$ docker-compose exec backend rails db:migrate`
+
+And then visit `localhost`
 
 ## Decisions
 
