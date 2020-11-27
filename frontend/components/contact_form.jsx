@@ -21,14 +21,12 @@ const ContactForm = ({url, method}) => {
       var message = (method === 'POST' ? 'Contact created!' : 'Contact updated!')
       setAlert({
         ...alert,
-        show: true,
         variant: 'success',
         message: message
       });
     }).catch(function (error) {
       setAlert({
         ...alert,
-        show: true,
         variant: 'danger',
         message: 'Something wrong happen!'
       });
@@ -37,7 +35,7 @@ const ContactForm = ({url, method}) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      { alert.show && <Alert key='0' variant={alert.variant}>{alert.message}</Alert> }
+      { alert && <Alert key='0' variant={alert.variant}>{alert.message}</Alert> }
       <Form.Group controlId="email">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="name@example.com" name="email" onChange={handleOnChange} />
