@@ -14,7 +14,7 @@ const ContactList = ({url}) => {
       setAlert({
         ...alert,
         variant: 'danger',
-        message: 'Something wrong happen!'
+        message: 'Something wrong happened!'
       });
     })
   }, [])
