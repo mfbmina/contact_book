@@ -1,39 +1,23 @@
-import Head from 'next/head'
-import { Container, Row, Button } from 'react-bootstrap'
+import { Alert, Container, Row } from 'react-bootstrap'
 import ContactList from '../components/contact_list'
+import Layout from '../components/layout'
+import useSWR from 'swr'
 
 export default function Home() {
+  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const { data, error } = useSWR('http://localhost:3001/contacts', fetcher)
 
   return (
-    <Container fluid>
-      <Head>
-        <title>ReactJS with react-bootstrap</title>
-        <link rel="icon" href="/favicon-32x32.png" />
-      </Head>
+    <Layout>
       <Container>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-        <p>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-        <Container>
+        { error && <Alert key='0' variant='danger'>Something wrong happen!</Alert> }
+        { !data && <Alert key='0' variant='info'>Loading...</Alert> }
+        { data && !error && (
           <Row className="justify-content-md-between">
-            <ContactList />
+            <ContactList data={data}/>
           </Row>
-        </Container>
+        )}
       </Container>
-
-      <footer className="cntr-footer">
-        <a
-          href="https://vercel.com?filter=next.js&utm_source=github&utm_medium=example&utm_campaign=next-example"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="sml-logo" />
-        </a>
-      </footer>
-    </Container>
+    </Layout>
   )
 }
