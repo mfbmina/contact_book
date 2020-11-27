@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import { Container, Row } from 'react-bootstrap'
 
-export default function Layout({children}) {
-
+const Layout = ({children}) => {
   return (
     <Container fluid>
       <Head>
@@ -18,10 +17,12 @@ export default function Layout({children}) {
 
       <footer className="cntr-footer">
         <p>
-          © 2020 - Made with &hearts; by 
+          © 2020 - Made with &hearts; by
           <a href="https://github.com/mfbmina" target="_blank" rel="noopener noreferrer">&nbsp;Matheus Mina</a>
         </p>
       </footer>
     </Container>
   )
 }
+
+export default Layout;

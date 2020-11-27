@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "bootstrap": "^4.4.1",
     "next": "latest",
     "react": "^16.13.1",
