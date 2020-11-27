@@ -28,7 +28,7 @@ const ContactForm = ({url, method}) => {
       setAlert({
         ...alert,
         variant: 'danger',
-        message: 'Something wrong happen!'
+        message: 'Something wrong happened!'
       });
     })
   }
