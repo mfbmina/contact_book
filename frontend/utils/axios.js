@@ -1,5 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const axiosOnSteroids = axios.create({baseURL: 'http://localhost:3001'})
+const axiosOnSteroids = axios.create({ baseURL: 'http://localhost:3001' });
 
-export default axiosOnSteroids
+export default axiosOnSteroids;
