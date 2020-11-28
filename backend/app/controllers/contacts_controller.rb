@@ -17,7 +17,7 @@ class ContactsController < ApplicationController
     if contact.save
       render json: contact, status: :created
     else
-      render json: { errors: contact.errors }, status: :bad_request
+      render json: { errors: contact.errors.full_messages }, status: :bad_request
     end
   end
 
@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
     if contact.valid?
       render json: contact
     else
-      render json: { errors: contact.errors }, status: :bad_request
+      render json: { errors: contact.errors.full_messages }, status: :bad_request
     end
   end
 
