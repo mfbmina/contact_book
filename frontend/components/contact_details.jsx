@@ -21,6 +21,20 @@ const ContactDetails = ({id}) => {
     })
   }, [])
 
+  const onClick = (event) => {
+    event.preventDefault()
+    axiosOnSteroids({url: `contacts/${id}`, method: 'DELETE'}).then(function (response) {
+      window.location = "/"
+    }).catch(function (error) {
+      console.log(error)
+      setAlert({
+        ...alert,
+        show: true,
+        variant: 'danger',
+        message: 'Something went wrong!'
+      });
+    })
+  }
 
   if (alert.show) {
     return (<Alert variant={alert.variant} onClose={() => setAlert({...alert, show: false})} dismissible>{alert.message}</Alert>)
@@ -35,7 +49,7 @@ const ContactDetails = ({id}) => {
 
           <Row>
             <Col><Button href={`/contacts/${id}/edit`} variant="primary" block>Edit</Button></Col>
-            <Col><Button variant="danger" block>Delete</Button></Col>
+            <Col><Button variant="danger" block onClick={onClick}>Delete</Button></Col>
           </Row>
         </Card.Body>
         <Card.Footer className="text-muted">Last update on {contact.updated_at}</Card.Footer>
