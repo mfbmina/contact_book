@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Container, Row } from 'react-bootstrap'
 
-const Layout = ({children}) => {
+const Layout = ({title, children}) => {
   return (
     <Container fluid>
       <Head>
@@ -9,10 +9,8 @@ const Layout = ({children}) => {
         <link rel="icon" href="/favicon-32x32.png" />
       </Head>
       <Container>
-        <h1>Contact book</h1>
-        <Container>
-          {children}
-        </Container>
+        <Row><h1>{title}</h1></Row>
+        <Row>{children}</Row>
       </Container>
 
       <footer className="cntr-footer">

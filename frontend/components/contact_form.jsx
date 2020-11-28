@@ -1,4 +1,4 @@
-import { Alert, Button, Container, Form } from 'react-bootstrap'
+import { Alert, Button, Row, Form, Col } from 'react-bootstrap'
 import { useState } from 'react'
 import axiosOnSteroids from '../utils/axios'
 
@@ -21,42 +21,53 @@ const ContactForm = ({url, method}) => {
       var message = (method === 'POST' ? 'Contact created!' : 'Contact updated!')
       setAlert({
         ...alert,
+        show: true,
         variant: 'success',
         message: message
       });
     }).catch(function (error) {
+      var errorMessage = error.response.data.errors?.map((str) => (<p>{str}</p>))
       setAlert({
         ...alert,
+        show: true,
         variant: 'danger',
-        message: 'Something wrong happened!'
+        message: errorMessage ? errorMessage : 'Something went wrong!'
       });
     })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      { alert && <Alert key='0' variant={alert.variant}>{alert.message}</Alert> }
-      <Form.Group controlId="email">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="name@example.com" name="email" onChange={handleOnChange} />
+    <Form onSubmit={handleSubmit} style={{width: "100%"}}>
+      { alert.show && (
+        <Alert variant={alert.variant} onClose={() => setAlert({...alert, show: false})} dismissible>{alert.message}</Alert>
+      )}
+      <Form.Group as={Row} controlId="email">
+        <Form.Label column sm="2">Email address</Form.Label>
+        <Col sm="10">
+          <Form.Control type="email" placeholder="name@example.com" name="email" onChange={handleOnChange} />
+        </Col>
       </Form.Group>
-      <Form.Group controlId="firstName">
-        <Form.Label>First name</Form.Label>
-        <Form.Control type="text" placeholder="E.g: John" name="first_name" onChange={handleOnChange} />
+      <Form.Group as={Row} controlId="firstName">
+        <Form.Label column sm="2">First name</Form.Label>
+        <Col sm="10">
+          <Form.Control type="text" placeholder="E.g: John" name="first_name" onChange={handleOnChange} />
+        </Col>
       </Form.Group>
-      <Form.Group controlId="lastName">
-        <Form.Label>Last name</Form.Label>
-        <Form.Control type="text" placeholder="E.g: Doe" name="last_name" onChange={handleOnChange} />
+      <Form.Group as={Row} controlId="lastName">
+        <Form.Label column sm="2">Last name</Form.Label>
+        <Col sm="10">
+          <Form.Control type="text" placeholder="E.g: Doe" name="last_name" onChange={handleOnChange} />
+        </Col>
       </Form.Group>
-      <Form.Group controlId="phoneNumber">
-        <Form.Label>Phone number</Form.Label>
-        <Form.Control type="text" placeholder="Normal text" name="phone_number" onChange={handleOnChange} />
+      <Form.Group as={Row} controlId="phoneNumber">
+        <Form.Label column sm="2">Phone number</Form.Label>
+        <Col sm="10">
+          <Form.Control type="text" placeholder="Normal text" name="phone_number" onChange={handleOnChange} />
+        </Col>
       </Form.Group>
 
-      <Button variant="primary" type="submit" >
-        Submit
-      </Button>
-    </form>
+      <Button variant="primary" type="submit" block>Submit</Button>
+    </Form>
   )
 }
 

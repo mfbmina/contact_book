@@ -7,7 +7,7 @@ export default function EditContact() {
   const { id } = router.query
 
   return (
-    <Layout>
+    <Layout title={`Edit contact #${id}`} >
       <ContactForm url={`/contacts/${id}`} method="PATCH" />
     </Layout>
   )

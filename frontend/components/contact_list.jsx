@@ -1,4 +1,4 @@
-import { Alert, Container, Row } from 'react-bootstrap'
+import { Alert, CardColumns } from 'react-bootstrap'
 import ContactListItem from './contact_list_item'
 import axiosOnSteroids from '../utils/axios'
 import { useState, useEffect } from 'react'
@@ -10,25 +10,28 @@ const ContactList = ({url}) => {
   useEffect(() => {
     axiosOnSteroids({url, method: 'GET'}).then(function (response) {
       setContacts(response.data)
+      setAlert({...alert, show: false });
     }).catch(function (error) {
       setAlert({
         ...alert,
+        show: true,
         variant: 'danger',
         message: 'Something wrong happened!'
       });
     })
   }, [])
 
-  return (
-    <Container>
-      {alert && <Alert variant={alert.variant}>{alert.message}</Alert>}
-      <Row>
+  if (alert.show) {
+    return (<Alert variant={alert.variant} onClose={() => setAlert({...alert, show: false})} dismissible>{alert.message}</Alert>)
+  } else {
+    return (
+      <CardColumns>
         {contacts.map((props, key) => (
           <ContactListItem {...props} key={key} />
         ))}
-      </Row>
-    </Container>
-  )
+      </CardColumns>
+    )
+  }
 };
 
 export default ContactList;
