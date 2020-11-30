@@ -1,45 +1,54 @@
-import { Alert, Button, Row, Form, Col } from 'react-bootstrap'
-import { useState } from 'react'
-import axiosOnSteroids from '../utils/axios'
+import {
+  Alert, Button, Row, Form, Col,
+} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import axiosOnSteroids from '../utils/axios';
 
-const ContactForm = ({url, method}) => {
+const ContactForm = ({ url, method }) => {
   const [formData, setFormData] = useState({});
   const [alert, setAlert] = useState({});
 
   const handleOnChange = (event) => {
     const { value, name } = event.target;
-    setAlert({...alert, show: false})
+    setAlert({ ...alert, show: false });
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
-  }
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    axiosOnSteroids({method, url,  data: formData}).then(function (response) {
-      var message = (method === 'POST' ? 'Contact created!' : 'Contact updated!')
+    event.preventDefault();
+    axiosOnSteroids({ method, url, data: formData }).then(() => {
+      const message = (method === 'POST' ? 'Contact created!' : 'Contact updated!');
       setAlert({
         ...alert,
         show: true,
         variant: 'success',
-        message: message
+        message,
       });
-    }).catch(function (error) {
-      var errorMessage = error.response.data.errors?.map((str) => (<p>{str}</p>))
+    }).catch((error) => {
+      const errorMessage = error.response.data.errors?.map((str) => (<p>{str}</p>));
       setAlert({
         ...alert,
         show: true,
         variant: 'danger',
-        message: errorMessage ? errorMessage : 'Something went wrong!'
+        message: errorMessage || 'Something went wrong!',
       });
-    })
-  }
+    });
+  };
 
   return (
-    <Form onSubmit={handleSubmit} style={{width: "100%"}}>
+    <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
       { alert.show && (
-        <Alert variant={alert.variant} onClose={() => setAlert({...alert, show: false})} dismissible>{alert.message}</Alert>
+        <Alert
+          variant={alert.variant}
+          onClose={() => setAlert({ ...alert, show: false })}
+          dismissible
+        >
+          {alert.message}
+        </Alert>
       )}
       <Form.Group as={Row} controlId="email">
         <Form.Label column sm="2">Email address</Form.Label>
@@ -68,7 +77,12 @@ const ContactForm = ({url, method}) => {
 
       <Button variant="primary" type="submit" block>Submit</Button>
     </Form>
-  )
-}
+  );
+};
+
+ContactForm.propTypes = {
+  url: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
+};
 
 export default ContactForm;

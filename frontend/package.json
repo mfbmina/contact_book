@@ -8,12 +8,14 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
-    "testwatch": "jest --watchAll"
+    "testwatch": "jest --watchAll",
+    "lint": "eslint \"**/*.jsx\" --ignore-pattern node_modules/"
   },
   "dependencies": {
     "axios": "^0.21.0",
     "bootstrap": "^4.4.1",
     "next": "latest",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1"
