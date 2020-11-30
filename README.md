@@ -14,6 +14,7 @@ We want a Frontend + Backend application that allows you to create, read, update
 - Docker
 - MySQL 5.7
 - NodeJS 14.15.1
+- Libs listed on package.json
 
 ## Setup
 
@@ -30,3 +31,10 @@ And then visit `localhost`
 - I'm using docker, so it is easier to setup the application everywhere.
 - I'm using Rails because it gives me a lot of stuff out of box, like: ActiveRecord, routing, etc.
 - I could have used ActiveRecord callbacks to create a history every time it is updated but I think having as a service is more readable and more extendable.
+
+## Possible improvements
+
+- The layout is not the best
+- Could add some "loading" mechanism to when the API call is still running.
+- Change docker to actually build the FE.
+- Test where API call are needed should be mocked to have a return from an API.
