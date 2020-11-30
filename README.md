@@ -23,7 +23,17 @@ We want a Frontend + Backend application that allows you to create, read, update
 1. `$ docker-compose exec backend rails db:create`
 1. `$ docker-compose exec backend rails db:migrate`
 
-And then visit `localhost`
+And then visit `localhost:3000`
+
+## Running tests and linters
+
+With the containers up:
+
+1. `$ docker-compose exec backend rspec`
+1. `$ docker-compose exec backend rubocop`
+
+1. `$ docker-compose exec frontend npm run test`
+1. `$ docker-compose exec frontend npm run lint`
 
 ## Decisions
 
@@ -38,3 +48,6 @@ And then visit `localhost`
 - Could add some "loading" mechanism to when the API call is still running.
 - Change docker to actually build the FE.
 - Test where API call are needed should be mocked to have a return from an API.
+- Add email and phone validation.
+- As a good practice in the FE, I could have changed the API response to camelcase.
+- Organize the components better under its own folders.
